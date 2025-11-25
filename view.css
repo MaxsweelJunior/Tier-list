@@ -1,0 +1,550 @@
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  padding-top: 30px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0f1a2c 0%, #000000 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #e0e7ff;
+}
+
+/* ------------------------ TIER ------------------------ */
+.tier {
+  border: 2px solid #333;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+/* ------------------------ DROPZONE ------------------------ */
+.dropzone {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent; /* borda padrão transparente */
+  min-height: 65px; /* altura maior */
+  min-width: 65px; /* largura maior */
+  background: #f0f0f0;
+  padding: 7px;
+  margin-top: 4px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+/* Efeito de onda ao soltar */
+.wave-effect {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #6c63ff 60%, #e0e7ff 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 2;
+  animation: wave-spread 1.2s cubic-bezier(.4, 2, .3, 1) forwards;
+  box-shadow: 0 0 16px 4px #6c63ff44;
+}
+
+@keyframes wave-spread {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.7;
+    filter: blur(0px);
+  }
+  60% {
+    opacity: 0.5;
+    filter: blur(1px);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5.5);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+/* ------------------------ ITEMS ------------------------ */
+.items {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0; /* permite usar margin lateral corretamente */
+  width: auto;
+
+  margin: 0 28px; /* 👈 margem lateral igual ao padding interno */
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* 👈 mantém os itens no canto direito */
+  gap: 10px; /* 👈 mantém o mesmo espaço entre os itens */
+
+  background: #f9f9f9;
+  border: 2px solid #333;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 6px #0003;
+  padding: 14px 18px; /* 👈 igual ao que você já tinha */
+  box-sizing: border-box;
+}
+
+
+/* versão original corrigida — compacta e centralizada */
+.items .item {
+  display: flex;                  /* garante alinhamento central vertical */
+  align-items: center;            /* centraliza verticalmente */
+  justify-content: center;        /* centraliza horizontalmente */
+  margin: 0;
+  padding: 5px 10px;              /* padding vertical menor (antes era 8px) */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5ff;
+  min-width: 45px;
+  height: 32px;                   /* altura fixa — evita alongar pra baixo */
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 1;                 /* remove espaçamento extra acima do texto */
+  box-shadow: 0 1px 3px #0001;
+  cursor: grab;
+  text-align: center;
+  transition:
+    transform 0.25s cubic-bezier(.4,2,.3,1),
+    box-shadow 0.25s cubic-bezier(.4,2,.3,1),
+    background 0.25s;
+  will-change: transform, box-shadow, background;
+  
+}
+
+.items .item:hover {
+  transform: translateY(-8px) scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 24px 0 #6c63ff55, 0 2px 8px #0002;
+  background: linear-gradient(90deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-color: #6c63ff;
+  color: #222;
+  z-index: 10;
+}
+
+/* ------------------------ SLOT TITLE ------------------------ */
+.slot-title {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  outline: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  box-shadow: none;
+  transition:
+    color 0.25s ease,
+    background-image 0.25s ease,
+    padding-left 0.2s ease;
+  padding-left: 12px;
+  margin-right: 0;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+/* ------------------------ TIER ROW ------------------------ */
+.tier-row {
+
+  
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 6px #0001;
+  padding: 14px 18px;
+  width: max-content;
+  justify-content: flex-start;
+  background-repeat: no-repeat;
+  min-width: 100%;
+  bottom: 0;
+  z-index: 200;
+  box-sizing: border-box;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 auto;
+
+}
+
+.tier-row.moving-up {
+  z-index: 10;
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.tier-row.moving-down {
+  z-index: 1;
+  transform: scale(0.98);
+}
+
+/* ------------------------ IMAGEM ------------------------ */
+.img-box {
+    
+    
+
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  transition:
+    transform 0.25s cubic-bezier(.4, 2, .3, 1),
+    box-shadow 0.25s cubic-bezier(.4, 2, .3, 1),
+    background 0.25s;
+}
+
+.img-box img.img-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.img-box:hover {
+  transform: translateY(-8px) scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 24px 0 #6c63ff55, 0 2px 8px #0002;
+  background: linear-gradient(90deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-color: #6c63ff;
+}
+
+/* ------------------------ TYPE LABEL ROW ------------------------ */
+.type-label-row {
+
+  display: flex;
+  align-items: center;
+ 
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 6px #0001;
+  justify-content: flex-start;
+  transition:
+    background-image 0.25s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    z-index 0s linear;
+  background-repeat: no-repeat;
+  width: max-content;
+  min-width: 100%;
+  padding: 2px 9px; /* padding menor */
+  gap: 0px; /* gap menor */
+  box-sizing: border-box;
+  margin-bottom: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #f9f9f9;
+  
+
+
+  position: sticky;       /* gruda no topo enquanto rola */
+  top: 0;                 /* topo da tela ou do pai */
+  z-index: 1000;          /* alto o suficiente para ficar acima dos tiers */
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* ou flex-end se quiser */
+  
+
+  
+ 
+
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* ------------------------ TYPE TABLE ------------------------ */
+.type-table {
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
+}
+
+/* ------------------------ TYPE CELL ------------------------ */
+.type-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 10px;
+  min-width: 60px;
+  box-shadow: none;
+}
+
+.type-cell .dropzone {
+  min-height: 65px;
+  min-width: 65px;
+  background: #f0f0f0;
+  margin-top: 4px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------ TYPE CELL LABEL ------------------------ */
+.type-cell-label,
+.type-label-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 9px;
+  background: #f5f5ff;
+  min-width: 60px;
+  min-height: 30px;
+  font-weight: bold;
+  font-size: 1em;
+  box-shadow: 0 1px 3px #0001;
+  margin-right: 10px;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 45px;
+  width: 93px;
+  transition:
+    transform 0.25s cubic-bezier(.4, 2, .3, 1),
+    box-shadow 0.25s cubic-bezier(.4, 2, .3, 1),
+    background 0.25s;
+}
+
+.type-cell-label:hover,
+#add-tier:hover,
+#add-type-label:hover {
+  transform: translateY(-8px) scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 24px 0 #6c63ff55, 0 2px 8px #0002;
+  background: linear-gradient(90deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-color: #6c63ff;
+  color: #222;
+  z-index: 10;
+}
+
+/* ------------------------ ADD BUTTONS ------------------------ */
+#add-tier,
+#add-type-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #919191;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #2c2c2c;
+  min-width: 60px;
+  min-height: 30px;
+  font-weight: bold;
+  font-size: 1em;
+  box-shadow: 0 1px 3px #0001;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition:
+    transform 0.25s cubic-bezier(.4, 2, .3, 1),
+    box-shadow 0.25s cubic-bezier(.4, 2, .3, 1),
+    background 0.25s;
+    color:white;
+}
+#add-tier{
+  margin-bottom: 200px;
+}
+
+/* ------------------------ EXPORT BUTTON (match items) ------------------------ */
+#share-export,
+.save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5ff;
+  min-width: 45px;
+  height: 32px;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 1;
+  box-shadow: 0 1px 3px #0001;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    transform 0.25s cubic-bezier(.4,2,.3,1),
+    box-shadow 0.25s cubic-bezier(.4,2,.3,1),
+    background 0.25s;
+  will-change: transform, box-shadow, background;
+  color: #222;
+}
+
+/* hover igual aos itens existentes */
+#share-export:hover,
+.save-button:hover {
+  transform: translateY(-8px) scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 24px 0 #6c63ff55, 0 2px 8px #0002;
+  background: linear-gradient(90deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-color: #6c63ff;
+  color: #222;
+  z-index: 10;
+}
+
+#back-btn:hover,
+.back-class:hover {
+  transform: translateY(-8px) scale(1.08) rotate(-2deg);
+  box-shadow: 0 8px 24px 0 #6c63ff55, 0 2px 8px #0002;
+  background: linear-gradient(90deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-color: #6c63ff;
+  color: #222;
+  z-index: 10;
+}
+#back-btn,
+.back-class {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 20px 30px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5ff;
+  min-width: 45px;
+  height: 32px;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 1;
+  box-shadow: 0 1px 3px #0001;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    transform 0.25s cubic-bezier(.4,2,.3,1),
+    box-shadow 0.25s cubic-bezier(.4,2,.3,1),
+    background 0.25s;
+  will-change: transform, box-shadow, background;
+  color: #222;
+border: 1px solid #919191;
+background: #2c2c2c;
+color:white;
+
+  margin-left: 826px;
+  margin-bottom: 10px;
+}
+/* ------------------------ EXPORT BUTTON (match items) ------------------------ */
+#share-export,
+.save-button {
+  position: fixed;
+  left: 40px;               /* distância da borda esquerda (ajuste se quiser) */
+  bottom: 20px;             /* mantém acima da barra de items (ajuste conforme altura da barra) */
+  z-index: 10001;           /* fica acima do conteúdo */
+  pointer-events: auto; 
+}
+#export-json{
+  margin-left: 95px;
+}
+
+/* ------------------------ TIER LIST TITLE ------------------------ */
+.tier-list-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #222;
+
+  /* limites e aparência */
+  width: 150px;             /* mesmo limite lateral que você usa hoje */
+  min-width: 100px;
+  min-height: 45px;         /* altura mínima igual aos outros labels */
+  max-height: 80px;         /* 👈 altura máxima — impede crescer demais */
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1d1d1d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;       /* centraliza o texto em várias linhas */
+
+  overflow: hidden;         /* impede o texto de ultrapassar a borda */
+  white-space: normal;      /* 👈 permite quebrar linha */
+  word-break: break-word;   /* quebra palavras longas */
+  
+
+  box-sizing: border-box;
+  cursor: text;
+  outline: none;
+  color: white;
+
+  transition:
+    transform 0.25s cubic-bezier(.4, 2, .3, 1),
+    box-shadow 0.25s cubic-bezier(.4, 2, .3, 1),
+    background 0.25s;
+    margin-right: 93px;
+}
+  
+   
+#save-library{
+
+margin-right: 20px;
+
+}
+
+.items,
+.tier-row,
+.type-label-row,
+.tier,
+.dropzone {
+  background-color: #1d1d1d; /* cinza claro para contraste */
+        /* borda mais suave */
+  color: #000000;            /* texto claro */
+}
+ #back-btn:hover,
+#export-json:hover,
+#share-export:hover,
+#save-library,
+.items .item:hover,
+.img-box:hover,
+.type-cell-label:hover,
+#add-tier:hover,
+#add-type-label:hover {
+  background: linear-gradient(90deg, #1f2a44 0%, #6c63ff 100%);
+  border-color: #6c63ff;
+  color: #fff;
+}
+#back-btn
+#export-json,
+#share-export,
+#save-library,
+.items .item,
+.img-box,
+.type-cell-label,
+#add-tier,
+#add-type-label {
+
+border: 1px solid #919191;
+background: #2c2c2c;
+color:white;
+
+}
+
+
+
+
+
+

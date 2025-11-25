@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tier List App</title>
+  <link rel="stylesheet" href="view.css">
+</head>
+<body>
+
+  <!--<button id="back-btn" class="back-class" onclick="window.location.href='index.html'">Voltar</button> -->
+  
+<div class="type-label-row">
+  <div class="tier-list-title" contenteditable="true" spellcheck="false">Tier List</div>
+  <div class="img-box" style="visibility: hidden;"></div>
+  <div class="slot-title" style="visibility: hidden;"></div>
+  <div class="type-table">
+
+    <button id="add-type-label">+</button>
+
+ 
+  </div>
+</div>
+
+
+  <div id="tiers-container">
+  <div class="tier-row">
+    <div class="img-box">
+      <label>
+        <input type="file" accept="image/*" class="img-input" style="display:none">
+        <img src="placeholder.png" class="img-preview" alt="+">
+      </label>
+    </div>
+    <input type="text" value="" class="slot-title" placeholder="Nome do personagem" />
+    <div class="type-table">
+      <div class="type-cell">
+        <span></span>
+        
+        <span></span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  <button id="share-export" class="save-button">Exportar</button>
+  <button id="export-json" class="save-button">Exportar como JSON</button>
+  <script src="view.js"></script>
+</body>
+</html>
